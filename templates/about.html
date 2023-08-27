@@ -1,0 +1,147 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+
+<style>
+  .further_about {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-image: url("/static/image/aboutbg.jpg");
+    background-size: 1350px;
+  }
+
+  .mission {
+    color: black;
+    width: 25%;
+    padding: 30px;
+    background-color: #ffd65e80;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .mission:hover {
+    width: 30%;
+    padding: 40px;
+    background-color: #ffd65e;
+    color: black;
+    border-radius: 20px;
+
+    transition: background-color 0.5s ease-in-out;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .vision {
+    width: 25%;
+    padding: 30px;
+    background-color: #ffd65e80;
+    color: black;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+  .vision:hover {
+    width: 30%;
+    padding: 40px;
+    background-color: #ffd65e;
+    color: black;
+    border-radius: 20px;
+
+    transition: background-color 0.5s ease-in-out;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .values {
+    width: 25%;
+    padding: 30px;
+    background-color: #ffd65e80;
+    color: black;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+  .values:hover {
+    width: 30%;
+    padding: 40px;
+    background-color: #ffd65e;
+    color: black;
+    border-radius: 20px;
+    transition: background-color 0.5s ease-in-out;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  h2 {
+    text-align: center;
+  }
+</style>
+{% endblock css %} {% block contents %}
+<div class="about_company">
+  <div class="about_image">
+    <img src="{% static 'image/about_image.jpg' %}" alt="" />
+  </div>
+
+  <div class="about_text">
+    <div class="center">
+      <h1>
+        <span>Aarch Real Estate</span>
+      </h1>
+    </div>
+    <p>
+      Welcome to Aarch Real Estate, where your property aspirations find their
+      perfect home. With a legacy of excellence, we bring together innovation
+      and expertise to redefine your real estate experience. Our dedicated team
+      is committed to guiding you through every step of your journey, whether
+      you're buying, selling, or investing. Backed by integrity and driven by
+      results, we're here to turn your real estate dreams into reality. Discover
+      a new level of service and a partner that truly understands your needs.
+      Welcome to Aarch Real Estate – where your future begins.
+    </p>
+  </div>
+</div>
+
+{% comment %} mission vision values {% endcomment %}
+
+<div class="featured_banner">
+  <h2>
+    <i class="fa-solid fa-circle-info" style="color: #f9f0da"></i> KNOW MORE
+    <i class="fa-solid fa-circle-info" style="color: #f9f0da"></i>
+  </h2>
+</div>
+
+<div class="further_about">
+  <div class="mission">
+    <h2>MISSION</h2>
+    At Aarch Real Estate, our mission is to empower individuals and families to
+    find their perfect home, while providing exceptional real estate
+    experiences. We are dedicated to delivering personalized solutions, guiding
+    our clients through the complex world of real estate with integrity,
+    transparency, and expertise. With a commitment to excellence, we aim to
+    create lasting relationships by helping people achieve their dreams of
+    homeownership and investment success.
+  </div>
+
+  <div class="vision">
+    <h2>VISION</h2>
+    Our vision at Aarch Real Estate is to be the forefront of innovation in the
+    real estate industry. We envision a future where every individual can
+    seamlessly navigate their real estate journey, empowered by cutting-edge
+    technology and informed decision-making. We aspire to set new standards of
+    excellence, continuously enhancing our services to anticipate and meet the
+    evolving needs of our clients. Through our efforts, we aim to be the trusted
+    partner that turns dreams of property ownership into reality.
+  </div>
+
+  <div class="values">
+    <h2>VALUES</h2>
+    At Aarch Real Estate, our values serve as the foundation of our every action
+    and decision. We are deeply committed to maintaining the highest levels of
+    integrity in all our interactions, ensuring that trust and honesty are at
+    the forefront of our relationships. Our unwavering dedication to being
+    client-centric drives us to listen, understand, and cater to the unique
+    needs and aspirations of each individual we serve. Our relentless pursuit of
+    expertise fuels our continuous learning and growth, allowing us to provide
+    informed guidance and solutions.
+  </div>
+</div>
+
+{% endblock contents %}

@@ -1,0 +1,251 @@
+{% extends 'base.html' %} {% load static %}{% block css %}
+<style>
+  .container-bg {
+    display: flex;
+    justify-content: space-around;
+    {% comment %} background-image: linear-gradient(to bottom, #004aad 0%, #fed75e 100%); {% endcomment %}
+  }
+
+  .right img {
+    height: 500px;
+    width: 600px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border-radius:20px;
+  }
+
+  .left{
+
+    border-radius: 20px;
+    padding:20px;
+    width: 500px;
+     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn2{
+    text-align: center;
+  }
+
+  .scroll {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    margin-left: -7rem;
+    width: 14rem;
+    height: auto;
+    font-family: Futura, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 3rem;
+    color: #405d86;
+
+    svg {
+      margin: 0 2rem;
+    }
+  }
+
+  .word {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .letter {
+    position: relative;
+    margin: 0 1.8rem;
+    &:first-of-type {
+      margin-right: -2rem; // P/A kerning
+    }
+  }
+
+  .form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      // background-color: rgba(salmon, 0.2);
+    }
+  }
+
+  .fill-1 {
+    fill: url(#gradient-2); // #405D86;
+  }
+
+  .fill-2 {
+    fill: url(#gradient-6);
+  }
+
+  .fill-3 {
+    fill: url(#gradient-3); // #ED6088;
+  }
+
+  .fill-4 {
+    fill: url(#gradient-1); // #6ED0DD
+  }
+
+  .fill-5 {
+    fill: url(#gradient-4);
+  }
+
+  .fill-6 {
+    fill: url(#gradient-5);
+  }
+
+  .hidden {
+    position: absolute;
+    top: -1000rem;
+    left: -1000rem;
+    width: 0;
+    height: 0;
+  }
+
+  .button {
+    position: absolute;
+    width: 24rem;
+    height: 10rem;
+    bottom: 50vh;
+    left: 50%;
+    margin-left: -12rem;
+
+    font-family: Futura, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    line-height: 10rem;
+    text-transform: uppercase;
+    font-size: 3rem;
+    text-decoration: none;
+    background-image: linear-gradient(to bottom, #8d63b1 0%, #8179cb 100%);
+    color: #ffffff;
+
+    &:hover {
+      background-image: linear-gradient(to bottom, #405d86 0%, #384257 100%);
+    }
+  }
+
+  .fullscreen {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    bottom: 20px;
+    right: 20px;
+    svg {
+      fill: url(#gradient-5);
+    }
+    &:hover {
+      svg {
+        fill: url(#gradient-2);
+      }
+    }
+  }
+
+
+  .contact-form{
+    padding:20px;
+  }
+
+  h3{
+    text-align:center;
+  }
+</style>
+{% endblock css %} {% block contents %}
+
+<div class="container-bg">
+  <div class="left">
+    <h3>
+      <b
+        >Lets Get In
+        <span style="color: #fed75e; font-style: bold">Touch</span></b
+      >
+    </h3>
+    <form class="contact-form" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="full_name">Full Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="full_name"
+          name="full_name"
+          aria-describedby="emailHelp"
+          placeholder="Enter your full name"
+          required
+        />
+      </div>
+      <div class="form-group mt-3">
+        <label for="exampleInputEmail1">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          name="email"
+          aria-describedby="emailHelp"
+          placeholder="Enter your email address"
+          required
+        />
+      </div>
+      <div class="form-group mt-3">
+        <label for="w3review">Your Message</label>
+
+        <textarea
+          class="form-control"
+          id="message"
+          name="message"
+          rows="4"
+          cols="50"
+          placeholder="What do you want to say to us?"
+          required
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-outline-primary btn2 mt-3 mx-auto p-2"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+
+  <div class="right">
+    <img src="{% static 'image/contact-bg.jpg' %}" alt="" />
+  </div>
+
+  <div class="right"></div>
+</div>
+
+{% for message in messages %} {% if message.tags == 'success' %}
+<!-- sweetalert js -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  {% if message.level == 20 %}
+        var swal_type = 'info';
+    {% elif message.level == 25 %}
+        var swal_type = 'success';
+    {% elif message.level == 30 %}
+        var swal_type = 'warning';
+    {% elif message.level == 40 %}
+        var swal_type = 'error';
+    {% endif %}
+  var m = "{{ message }}";
+  Swal.fire({
+    icon: swal_type,
+    text: m,
+    showConfirmButton: false,
+    timer: 2000,
+    height: '100px'
+  });
+</script>
+{% endif %} {% endfor %} {% endblock contents%} {% comment %} {% if messages %}
+{% for message in messages %} {% if message.tags %}
+<script>
+  alert("{{ message }}");
+</script>
+{% endif %} {% endfor %} {% endif %} {% endblock contents %} {% endcomment %}
