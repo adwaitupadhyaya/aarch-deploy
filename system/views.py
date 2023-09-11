@@ -4,6 +4,8 @@ from django.views import View
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+
+from .models import PropertyModel
 # Create your views here.
 
 
@@ -16,6 +18,10 @@ class LandingPageView(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
+        properties = PropertyModel.objects.all()
+
+        self.args['properties'] = properties
+
         return render(request, self.template_name, self.args)
 
 

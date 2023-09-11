@@ -125,6 +125,17 @@
   h1 {
     text-align: center;
   }
+
+  .description {
+    font-size: 18px;
+    text-align: justify;
+  }
+
+  .container-img img {
+    height: 100%;
+    width: 100%;
+    margin: 10px;
+  }
 </style>
 
 {% endblock css %} {% block contents %}
@@ -233,210 +244,273 @@
     </h2>
   </div>
 
-  {% comment %}
   <div class="card_slider">
+    {% for property in properties %}
+
     <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
+      <img src="{{property.property_image.url}}" />
       <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
+        <h5 class="card-title">{{property.property_name}}</h5>
+        <button
+          type="button"
+          class="btn btn-outline-dark mt-3"
+          data-bs-toggle="modal"
+          data-bs-target="#propertyModal{{ property.id }}"
+          onclick="openPropertyModal({{ property.id }})"
+        >
+          Details
+        </button>
       </div>
     </div>
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
+
+    {% comment %} Modal for property details {% endcomment %}
+
+    <div
+      class="modal fade"
+      id="propertyModal{{ property.id }}"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              PROPERTY FOR SALE
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <strong>AREA OF PROPERTY: </strong>
+              {{property.property_area}} square meters
+            </p>
+            <p>
+              <strong>DIMENSIONS: </strong>
+              {{property.property_dimensions}}
+            </p>
+
+            <div class="container-img">
+              <img src="{{property.property_image.url}}" />
+            </div>
+
+            <p class="description">{{property.property_description}}</p>
+
+            <p>
+              <strong>LOCATION AND PRICE ARE AVAILABLE ON CONTACT</strong>
+            </p>
+            <a href="{% url 'contact' %}" class="btn btn-outline-dark"
+              >CONTACT US</a
+            >
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
-      </div>
+
+    {% endfor %}
+  </div>
+
+  <div class="featured_properties">
+    <div class="featured_banner">
+      <h2>
+        <i class="fa-solid fa-house" style="color: #f9f0da"></i> Recently Sold
+        <i class="fa-solid fa-house" style="color: #f9f0da"></i>
+      </h2>
     </div>
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
+
+    <div class="card_slider">
+      {% comment %}
+      <div class="card" style="width: 18rem">
+        <img
+          src="{% static 'image/property1.jpg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Title of property</h5>
+          <p class="card-text">
+            Slight description. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Beatae, quibusdam!
+          </p>
+          <a href="#" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem">
+        <img
+          src="{% static 'image/property1.jpg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Title of property</h5>
+          <p class="card-text">
+            Slight description. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Beatae, quibusdam!
+          </p>
+          <a href="#" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem">
+        <img
+          src="{% static 'image/property1.jpg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Title of property</h5>
+          <p class="card-text">
+            Slight description. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Beatae, quibusdam!
+          </p>
+          <a href="#" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem">
+        <img
+          src="{% static 'image/property1.jpg' %}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Title of property</h5>
+          <p class="card-text">
+            Slight description. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Beatae, quibusdam!
+          </p>
+          <a href="#" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+      {% endcomment %}
+
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="progress-text">In Progress...</div>
       </div>
     </div>
   </div>
-  {% endcomment %}
 
-  <div class="progress-container">
-    <div class="progress-bar"></div>
-    <div class="progress-text">In Progress...</div>
-  </div>
-</div>
+  <div class="about_company">
+    <div class="about_image">
+      <img src="{% static 'image/about_image.jpg' %}" alt="" />
+    </div>
 
-<div class="featured_properties">
-  <div class="featured_banner">
-    <h2>
-      <i class="fa-solid fa-house" style="color: #f9f0da"></i> Recently Sold
-      <i class="fa-solid fa-house" style="color: #f9f0da"></i>
-    </h2>
-  </div>
+    <div class="about_text">
+      <div class="center">
+        <h1>
+          <span>Aarch Real Estate</span>
+        </h1>
+      </div>
+      <p>
+        Welcome to Aarch Real Estate, where your property aspirations find their
+        perfect home. With a legacy of excellence, we bring together innovation
+        and expertise to redefine your real estate experience. Our dedicated
+        team is committed to guiding you through every step of your journey,
+        whether you're buying, selling, or investing. Backed by integrity and
+        driven by results, we're here to turn your real estate dreams into
+        reality. Discover a new level of service and a partner that truly
+        understands your needs. Welcome to Aarch Real Estate – where your future
+        begins.
+      </p>
 
-  <div class="card_slider">
-    {% comment %}
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
+      <div class="read_more">
+        <a class="btn btn-outline-primary" href="{% url 'about' %}"
+          >Read More</a
+        >
       </div>
     </div>
-
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem">
-      <img
-        src="{% static 'image/property1.jpg' %}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Title of property</h5>
-        <p class="card-text">
-          Slight description. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Beatae, quibusdam!
-        </p>
-        <a href="#" class="btn btn-primary">Details</a>
-      </div>
-    </div>
-    {% endcomment %}
-
-    <div class="progress-container">
-      <div class="progress-bar"></div>
-      <div class="progress-text">In Progress...</div>
-    </div>
-  </div>
-</div>
-
-<div class="about_company">
-  <div class="about_image">
-    <img src="{% static 'image/about_image.jpg' %}" alt="" />
   </div>
 
-  <div class="about_text">
-    <div class="center">
-      <h1>
-        <span>Aarch Real Estate</span>
-      </h1>
+  <div class="our-services">
+    <div class="featured_banner">
+      <h2>
+        <i class="fa-solid fa-info-circle" style="color: #f9f0da"></i> We are
+        selling!
+        <i class="fa-solid fa-info-circle" style="color: #f9f0da"></i>
+      </h2>
     </div>
-    <p>
-      Welcome to Aarch Real Estate, where your property aspirations find their
-      perfect home. With a legacy of excellence, we bring together innovation
-      and expertise to redefine your real estate experience. Our dedicated team
-      is committed to guiding you through every step of your journey, whether
-      you're buying, selling, or investing. Backed by integrity and driven by
-      results, we're here to turn your real estate dreams into reality. Discover
-      a new level of service and a partner that truly understands your needs.
-      Welcome to Aarch Real Estate – where your future begins.
-    </p>
 
-    <div class="read_more">
-      <a class="btn btn-outline-primary" href="{% url 'about' %}">Read More</a>
-    </div>
-  </div>
-</div>
+    <div class="services-container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card text-center" id="coliving">
+            <div class="card-body">
+              <div class="blur">
+                <h5 class="card-title">Coliving</h5>
 
-<div class="our-services">
-  <div class="featured_banner">
-    <h2>
-      <i class="fa-solid fa-info-circle" style="color: #f9f0da"></i> We are
-      selling!
-      <i class="fa-solid fa-info-circle" style="color: #f9f0da"></i>
-    </h2>
-  </div>
-
-  <div class="services-container">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card text-center" id="coliving">
-          <div class="card-body">
-            <div class="blur">
-              <h5 class="card-title">Coliving</h5>
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-outline-dark mt-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalC"
+                >
+                  Read more
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card text-center" id="townhouses">
+            <div class="card-body">
+              <h5 class="card-title">Townhouses</h5>
 
               <!-- Button trigger modal -->
               <button
                 type="button"
                 class="btn btn-outline-dark mt-3"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModalC"
+                data-bs-target="#exampleModalT"
+              >
+                Read more
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card text-center" id="apartments">
+            <div class="card-body">
+              <h5 class="card-title">Apartments</h5>
+
+              <button
+                type="button"
+                class="btn btn-outline-dark mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalA"
+              >
+                Read more
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card text-center" id="mansions">
+            <div class="card-body">
+              <h5 class="card-title">Mansions</h5>
+
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-outline-dark mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalM"
               >
                 Read more
               </button>
@@ -444,221 +518,188 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="card text-center" id="townhouses">
-          <div class="card-body">
-            <h5 class="card-title">Townhouses</h5>
+    </div>
+  </div>
 
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-outline-dark mt-3"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalT"
-            >
-              Read more
-            </button>
-          </div>
+  {% comment %} ALL MODALS {% endcomment %}
+  <!-- Coliving Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalC"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">COLIVING</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card text-center" id="apartments">
-          <div class="card-body">
-            <h5 class="card-title">Apartments</h5>
-
-            <button
-              type="button"
-              class="btn btn-outline-dark mt-3"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalA"
-            >
-              Read more
-            </button>
-          </div>
+        <div class="modal-body">
+          <img src="{% static 'image/carousel2.png' %}" alt="" width="600" />
+          <img src="{% static 'image/carousel3.png' %}" alt="" width="600" />
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card text-center" id="mansions">
-          <div class="card-body">
-            <h5 class="card-title">Mansions</h5>
-
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-outline-dark mt-3"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalM"
-            >
-              Read more
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-{% comment %} ALL MODALS {% endcomment %}
-<!-- Coliving Modal -->
-<div
-  class="modal fade"
-  id="exampleModalC"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">COLIVING</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <img src="{% static 'image/carousel2.png' %}" alt="" width="600" />
-        <img src="{% static 'image/carousel3.png' %}" alt="" width="600" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
+  <!-- Twonhouses Modal Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalT"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">TOWNHOUSES</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" style="font-size: 20px">
+          <p>
+            Discover our exquisite townhouses that perfectly blend modern
+            comfort with timeless elegance. Each townhouse is meticulously
+            designed to provide a harmonious living experience, featuring
+            spacious interiors, top-notch amenities, and breathtaking views.
+            Whether you're looking for a cozy retreat or a place to entertain,
+            our townhouses offer the ideal setting for a sophisticated
+            lifestyle. Explore our range of layouts and find your dream urban
+            haven today.
+          </p>
+
+          <img src="{% static 'image/townhouse.jpg' %}" alt="" width="750" />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Twonhouses Modal Modal -->
-<div
-  class="modal fade"
-  id="exampleModalT"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">TOWNHOUSES</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body" style="font-size: 20px">
-        <p>
-          Discover our exquisite townhouses that perfectly blend modern comfort
-          with timeless elegance. Each townhouse is meticulously designed to
-          provide a harmonious living experience, featuring spacious interiors,
-          top-notch amenities, and breathtaking views. Whether you're looking
-          for a cozy retreat or a place to entertain, our townhouses offer the
-          ideal setting for a sophisticated lifestyle. Explore our range of
-          layouts and find your dream urban haven today.
-        </p>
+  <!-- Apartments Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalA"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">APARTMENTS</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" style="font-size: 20px">
+          <h1>Discover Your Ideal Living Space</h1>
+          <p>
+            Welcome to our collection of meticulously designed apartments that
+            combine modern luxury with comfort. Each apartment is thoughtfully
+            crafted to provide you with a unique living experience. From
+            spacious layouts to premium finishes, our apartments offer a perfect
+            blend of style and functionality. Whether you're looking for a cozy
+            studio or a spacious multi-bedroom apartment, we have the perfect
+            option to suit your lifestyle. Explore our range of apartments and
+            find your new home today.
+          </p>
 
-        <img src="{% static 'image/townhouse.jpg' %}" alt="" width="750" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
+          <img src="{% static 'image/apartments.png' %}" alt="" width="750" />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Apartments Modal -->
-<div
-  class="modal fade"
-  id="exampleModalA"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">APARTMENTS</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body" style="font-size: 20px">
-        <h1>Discover Your Ideal Living Space</h1>
-        <p>
-          Welcome to our collection of meticulously designed apartments that
-          combine modern luxury with comfort. Each apartment is thoughtfully
-          crafted to provide you with a unique living experience. From spacious
-          layouts to premium finishes, our apartments offer a perfect blend of
-          style and functionality. Whether you're looking for a cozy studio or a
-          spacious multi-bedroom apartment, we have the perfect option to suit
-          your lifestyle. Explore our range of apartments and find your new home
-          today.
-        </p>
+  <!-- Mansions Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalM"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">MANSIONS</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" style="font-size: 20px">
+          <h1>Experience Exclusivity and Elegance</h1>
+          <p>
+            Indulge in the epitome of luxury living with our exquisite
+            collection of mansions. Nestled in prestigious neighborhoods, these
+            mansions redefine grandeur and sophistication. From breathtaking
+            architecture to opulent interiors, each mansion is a masterpiece of
+            design and craftsmanship. With sprawling gardens, private amenities,
+            and stunning views, these homes offer a lifestyle of unparalleled
+            prestige. Explore our selection of mansions and elevate your living
+            experience to new heights of elegance.
+          </p>
 
-        <img src="{% static 'image/apartments.png' %}" alt="" width="750" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
+          <img
+            src="{% static 'image/mansions.png' %}"
+            alt="mansion photo"
+            width="750"
+          />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
+  {% endblock contents %} {% block js %} {% endblock js %}
 </div>
-
-<!-- Mansions Modal -->
-<div
-  class="modal fade"
-  id="exampleModalM"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">MANSIONS</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body" style="font-size: 20px">
-        <h1>Experience Exclusivity and Elegance</h1>
-        <p>
-          Indulge in the epitome of luxury living with our exquisite collection
-          of mansions. Nestled in prestigious neighborhoods, these mansions
-          redefine grandeur and sophistication. From breathtaking architecture
-          to opulent interiors, each mansion is a masterpiece of design and
-          craftsmanship. With sprawling gardens, private amenities, and stunning
-          views, these homes offer a lifestyle of unparalleled prestige. Explore
-          our selection of mansions and elevate your living experience to new
-          heights of elegance.
-        </p>
-
-        <img
-          src="{% static 'image/mansions.png' %}"
-          alt="mansion photo"
-          width="750"
-        />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock contents %} {% block js %} {% endblock js %}
